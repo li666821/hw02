@@ -1,18 +1,23 @@
 import openai
 import sys
+import getpass
 
-# 配置 - 直接使用提供的API密钥
-_MY_API_KEY = 'sk-449e0d8a65844be4826fe4326687a1f0'
 _BASE_URL = "https://api.deepseek.com/v1"
 
 def chat_with_deepseek(user_input):
     print("欢迎使用DeepSeek Chatbot！")
     print(f"正在初始化...")
     
+    # 安全获取API密钥
+    api_key = getpass.getpass("请输入DeepSeek API密钥: ")
+    if not api_key:
+        print("API密钥不能为空！")
+        return
+    
     # 初始化OpenAI客户端
     try:
         client = openai.OpenAI(
-            api_key=_MY_API_KEY,
+            api_key=api_key,
             base_url=_BASE_URL
         )
         print("初始化成功，正在发送请求...")
